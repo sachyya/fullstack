@@ -2,18 +2,15 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const App = (props) => {
-	console.log(useState());
-
-
 	const [counter, setCounter ] = useState(0)
 
-	setTimeout(
-		() => setCounter(counter + 1),
-		1000
-	)
-
+	const setCounterValue = (value) => () => setCounter( value )
 	return (
-		<div>{counter}</div>
+		<div>
+			<div>{counter}</div>
+			<button onClick={setCounterValue( counter + 1 )}>plus</button>
+			<button onClick={setCounterValue(0)}>reset</button>
+		</div>
 	)
 }
 
