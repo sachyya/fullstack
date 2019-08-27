@@ -9,7 +9,7 @@ const Button = (props) => {
 	)
 }
 
-const Result = (props) => {
+const Statistics = (props) => {
 	return(
 		<p>{props.text}: {props.counter}</p>
 	)
@@ -46,12 +46,12 @@ const App = () => {
 			<Button onClick={badClick} text="bad" />			
 			<Heading title="statistics"/>	
 
-			<Result text="good" counter={good}/>			
-			<Result text="neutral" counter={neutral}/>			
-			<Result text="bad" counter={bad}/>			
-			<Result text="total" counter={total()}/>			
-			<Result text="average" counter={average()}/>			
-			<Result text="positive" counter={precentage()}/>			
+			<Statistics text="good" counter={good}/>			
+			<Statistics text="neutral" counter={neutral}/>			
+			<Statistics text="bad" counter={bad}/>			
+			<Statistics text="total" counter={total()}/>			
+			<Statistics text="average" counter={average()}/>			
+			<Statistics text="positive" counter={precentage()}/>			
 		</div>
 	)
 }
