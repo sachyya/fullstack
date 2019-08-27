@@ -1,52 +1,53 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const History = (props) => {
-	if ( props.allClicks.length === 0 ) {
-		return(
-			<div>the app is used by pressing the buttons</div>
-		)
-	}
-
-	return(
-		<div>button press history: {props.allClicks.join(' ')}</div>
-	)
-}
+const Heading = (props) => <h2>{props.title}</h2>
 
 const Button = (props) => {
-	console.log('props value is', props)
-	const { onClick, text } = props
-	return(  
-		<button onClick={onClick}>    {text}  </button>
+	return(
+		<button onClick={props.onClick}>{props.text}</button>
 	)
-
 }
 
-const App = (props) => {
-	const [left, setLeft] = useState(0)
-	const [right, setRight] = useState(0)
-	const [allClicks, setAll] = useState([])
+const Result = (props) => {
+	return(
+		<p>{props.text}: {props.counter}</p>
+	)
+}
 
-	const handleLeftClick = () => {
-		setAll(allClicks.concat('L'))    
-		setLeft(left + 1)
+const App = () => {
+	// save clicks of each button to own state
+	const [good, setGood] = useState(0)
+	const [neutral, setNeutral] = useState(0)
+	const [bad, setBad] = useState(0)
+
+	const goodClick = () => {
+		setGood( good + 1 )
 	}
 
-	const handleRightClick = () => {
-	    setAll(allClicks.concat('R'))    
-	    setRight(right + 1)
+	const neutralClick = () => {
+		setNeutral( neutral + 1 )
 	}
+
+	const badClick = () => {
+		setBad( bad + 1 )
+	}
+
 	return (
 		<div>
-			{left}
-			<Button onClick={handleLeftClick} text='left' />
-			<Button onClick={handleRightClick} text='right' />
-			{right}
+			<Heading title="give feedback"/>			
+			<Button onClick={goodClick} text="good" />			
+			<Button onClick={neutralClick} text="neutral" />			
+			<Button onClick={badClick} text="bad" />			
+			<Heading title="statistics"/>	
 
-			<History allClicks={allClicks} />
-
+			<Result text="good" counter={good}/>			
+			<Result text="neutral" counter={neutral}/>			
+			<Result text="bad" counter={bad}/>			
 		</div>
 	)
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, 
+	document.getElementById('root')
+)
