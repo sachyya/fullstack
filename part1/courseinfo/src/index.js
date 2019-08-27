@@ -9,10 +9,18 @@ const Button = (props) => {
 	)
 }
 
-const Statistics = (props) => {
-	return(
-		<p>{props.text}: {props.counter}</p>
-	)
+const Statistics = ({statistics}) => {
+
+	// console.log(statistics);
+	// if (statistics[4].value === 0 ) {
+	// 	return <p>No feedbacks given</p>
+	// }
+
+		return(
+			statistics.forEach(statistic => {
+				<p>{statistic.text}: {statistic.value}</p>
+			})
+		)
 }
 
 const App = () => {
@@ -38,20 +46,43 @@ const App = () => {
 	const precentage = () => ( good/total() ) * 100 + ' %'
 	const average = () => ( total()/3 )
 
+	let statistics = [
+		{
+			text: 'good',
+			value: good
+		},
+		{
+			text: 'bad',
+			value: bad
+		},
+		{
+			text: 'neutral',
+			value: neutral
+		},
+		{
+			text: 'total',
+			value: total()
+		},
+		{
+			text: 'average',
+			value: average()
+		},
+		{
+			text: 'positive',
+			value: precentage()
+		}
+	]
+
+	// console.log(statistics)
 	return (
 		<div>
 			<Heading title="give feedback"/>			
 			<Button onClick={goodClick} text="good" />			
 			<Button onClick={neutralClick} text="neutral" />			
 			<Button onClick={badClick} text="bad" />			
+			
 			<Heading title="statistics"/>	
-
-			<Statistics text="good" counter={good}/>			
-			<Statistics text="neutral" counter={neutral}/>			
-			<Statistics text="bad" counter={bad}/>			
-			<Statistics text="total" counter={total()}/>			
-			<Statistics text="average" counter={average()}/>			
-			<Statistics text="positive" counter={precentage()}/>			
+			<Statistics statistics={statistics} />
 		</div>
 	)
 }
