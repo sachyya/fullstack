@@ -9,18 +9,27 @@ const Button = (props) => {
 	)
 }
 
+const Statistic = ({text, value}) => {
+	return(
+		<p>{text}: {value}</p>
+	)
+}
+
 const Statistics = ({statistics}) => {
 
-	// console.log(statistics);
-	// if (statistics[4].value === 0 ) {
-	// 	return <p>No feedbacks given</p>
-	// }
-
-		return(
-			statistics.forEach(statistic => {
-				<p>{statistic.text}: {statistic.value}</p>
-			})
-		)
+	if (statistics.total <= 0 ) {
+		return <p>No feedbacks given</p>
+	}
+	return(
+		<div>
+		<Statistic text="good" value={statistics.good}	/>
+		<Statistic text="bad" value={statistics.bad}	/>
+		<Statistic text="neutral" value={statistics.neutral}	/>
+		<Statistic text="total" value={statistics.total}	/>
+		<Statistic text="average" value={statistics.average}	/>
+		<Statistic text="positive" value={statistics.precentage}	/>
+		</div>
+	)
 }
 
 const App = () => {
@@ -46,32 +55,15 @@ const App = () => {
 	const precentage = () => ( good/total() ) * 100 + ' %'
 	const average = () => ( total()/3 )
 
-	let statistics = [
-		{
-			text: 'good',
-			value: good
-		},
-		{
-			text: 'bad',
-			value: bad
-		},
-		{
-			text: 'neutral',
-			value: neutral
-		},
-		{
-			text: 'total',
-			value: total()
-		},
-		{
-			text: 'average',
-			value: average()
-		},
-		{
-			text: 'positive',
-			value: precentage()
-		}
-	]
+	let statistics = 
+	{
+		bad: bad,
+		good: good,
+		neutral: neutral,
+		total: total(),
+		average: average(),
+		precentage: precentage()
+	}
 
 	// console.log(statistics)
 	return (
