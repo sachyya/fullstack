@@ -1,6 +1,19 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Result = ({maxVote, maxVotePosition, anecdotes}) => {
+  if ( maxVote !== 0 ) {
+    return (
+      <div>
+        <h2>Anecdote with most votes</h2>
+        <p>{anecdotes[maxVotePosition]}</p>
+        <p>has {maxVote} votes</p>
+      </div>
+    )
+  }
+  return ''
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [vote, setVote] = useState(0)
@@ -36,9 +49,7 @@ const App = (props) => {
       <p>has {selectedVote[selected]} votes</p>
       <button onClick={onClick}>next anecdote!</button>
       <button onClick={onVote}>vote</button>
-      <h2>Anecdote with most votes</h2>
-      <p>{props.anecdotes[maxVotePosition]}</p>
-      <p>has {maxVote} votes</p>
+      <Result maxVote={maxVote} maxVotePosition={maxVotePosition} anecdotes={anecdotes} />
     </div>
   )
 }
