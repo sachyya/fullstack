@@ -12,6 +12,12 @@ const App = () => {
   }
 
   const formSubmit = (event) => {
+    persons.forEach(person => {
+      if(person.name === newName ){
+        alert(`${newName} is already added to phonebook`)
+      }
+    });
+
     event.preventDefault()
     const newPersons = {
       name: newName
