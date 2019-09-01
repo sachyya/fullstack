@@ -3,10 +3,14 @@ import Person from './components/Person'
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newNum, setNewNum ] = useState('')
+  const [newFilter, setFilter] = useState('')
 
   const onNameChange = (e) => {
     setNewName(e.target.value)
@@ -14,6 +18,14 @@ const App = () => {
 
   const onNumChange = (e) => {
     setNewNum(e.target.value)
+  }
+  
+  const personsToShow = newFilter === '' ? persons : persons.filter(person => {
+      return person.name.toUpperCase().includes(newFilter.toUpperCase())
+  })
+
+  const onFilterChange = (e) => {
+    setFilter(e.target.value)
   }
 
   const formSubmit = (event) => {
@@ -33,13 +45,14 @@ const App = () => {
     setNewNum('')
   }
 
-  const personRows = () => persons.map(person => 
+  const personRows = () => personsToShow.map(person => 
     <Person key={person.name} person={person} />
   )
 
   return (
     <div>
-      <div>debug: {newName}</div>
+      <div>debug: {newFilter}</div>
+      <p>filter: <input value={newFilter} onChange={onFilterChange} /></p>
       <h2>Phonebook</h2>
       <form onSubmit={formSubmit}>
         <div>
