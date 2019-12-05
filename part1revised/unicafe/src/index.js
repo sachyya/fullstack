@@ -16,7 +16,6 @@ const Statistic = ({count, text}) => {
 }
 
 const Statistics = ({clicks}) => {
-  console.log(clicks)
   return(
     <table>
     <tbody>
