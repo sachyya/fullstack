@@ -6,20 +6,28 @@ const Heading = ({text}) => <div><h2>{text}</h2></div>
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
 const Statistic = ({count, text}) => {
-	return <p>{text} : {count}</p> 
+	return (
+      <tr>
+        <td>{text}</td>
+        <td>{count}</td>
+      </tr>
+     
+  )
 }
 
 const Statistics = ({clicks}) => {
   console.log(clicks)
   return(
-    <div>
+    <table>
+    <tbody>
       <Statistic text="good" count={clicks.good} /> 
       <Statistic text="neutral" count={clicks.neutral}/> 
       <Statistic text="bad" count={clicks.bad}/> 
       <Statistic text="all" count={clicks.allClicks}/> 
       <Statistic text="average" count={clicks.avg}/> 
       <Statistic text="positive" count={clicks.positive}/> 
-    </div>
+     </tbody>
+    </table>
   )
 }
 
