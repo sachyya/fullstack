@@ -5,35 +5,53 @@ const Heading = ({text}) => <div><h2>{text}</h2></div>
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
+const Statistic = ({count, text}) => {
+	return <p>{text} : {count}</p> 
+}
 
-const Result = ({count, text}) => <p>{text} : {count}</p> 
+const Statistics = ({clicks}) => {
+  console.log(clicks)
+  return(
+    <div>
+      <Statistic text="good" count={clicks.good} /> 
+      <Statistic text="neutral" count={clicks.neutral}/> 
+      <Statistic text="bad" count={clicks.bad}/> 
+      <Statistic text="all" count={clicks.allClicks}/> 
+      <Statistic text="average" count={clicks.avg}/> 
+      <Statistic text="positive" count={clicks.positive}/> 
+    </div>
+  )
+}
 
 const App = () => {
   // save clicks of each button to own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [allClicks, setClicks] = useState(0)
+  const [clicks, setClick] = useState({good: 0, neutral: 0, bad:0, allClicks:0, avg: 0, positive: 0 })
+  // const [good, setGood] = useState(0)
+  // const [neutral, setNeutral] = useState(0)
+  // const [bad, setBad] = useState(0)
+  // const [allClicks, setClicks] = useState(0)
 
-  const handleGoodClick = () => {
-  	setGood(good + 1)
-  	setClicks(allClicks + 1)
-  }
+  const handleGoodClick = () => setClick({ 
+    ...clicks, 
+    good: clicks.good + 1, 
+    allClicks: clicks.allClicks + 1, 
+    positive: clicks.good / clicks.allClicks * 100 + '%',
+    avg: clicks.allClicks/3
+  })
 
-  const handleNeutralClick = () => {
-  	setNeutral(neutral + 1)
-  	setClicks(allClicks + 1)
-  }
+  const handleNeutralClick = () => setClick({ 
+    ...clicks, 
+    neutral: clicks.neutral + 1, 
+    allClicks: clicks.allClicks + 1,
+    avg: clicks.allClicks/3
+  })
 
-  const handleBadClick = () => {
-  	setBad(bad + 1)
-  	setClicks(allClicks + 1)
-  }
-
-  const positiveFeedback = () => good/allClicks * 100 + '%';
-
-  const avgFeedback = () => allClicks/3;
-
+  const handleBadClick = () => setClick({ 
+    ...clicks, 
+    bad: clicks.bad + 1, 
+    allClicks: clicks.allClicks + 1,
+    avg: clicks.allClicks/3
+  })
 
   return (
     <div>
@@ -42,12 +60,7 @@ const App = () => {
 	    	<Button onClick={handleNeutralClick} text="neutral" />
 	    	<Button onClick={handleBadClick} text="bad" />
     	<Heading text="statistics" /> 
-	    	<Result text="good" count={good} /> 
-	    	<Result text="neutral" count={neutral}/> 
-	    	<Result text="bad" count={bad}/> 
-	    	<Result text="all" count={allClicks}/> 
-	    	<Result text="average" count={avgFeedback()}/> 
-	    	<Result text="positive" count={positiveFeedback()}/> 
+	    <Statistics clicks={clicks} />
     </div>
   )
 }
