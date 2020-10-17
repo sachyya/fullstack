@@ -91,6 +91,11 @@ const App = () => {
           setNotification(null)        
         }, 1000)
       })
+      .catch(error => {
+          setNotification(error.response.data.error)        
+          setSuccess(false)
+          console.log(error.response.data.error)
+      })
   }
 
   const handleOnSubmit = (e) => {
